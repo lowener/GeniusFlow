@@ -9,6 +9,8 @@ With your RapGenius API key in the file *key_api.txt*
 
 # Requirements
 
+`pip install -r requirements.txt`
+
 * Python 3
 * BeautifulSoup
 * nltk
