@@ -14,12 +14,9 @@ with open('key_api.txt', 'r') as f:
 
 Auth_headers={'Authorization': 'Bearer ' + auth_hdr_txt }
 base_url = 'http://api.genius.com'
-
 artist_url = base_url + '/artists'
 search_url = base_url + '/search'
 songs_url = base_url + '/songs'
-
-
 
 def lyrics_from_song_api_path(index, song_api_path):
     print(str(index))
@@ -65,7 +62,6 @@ def get_artist_songs(artist_id, nb_songs=100):
                 break
             songs_set.add(song['api_path'])
         page_num = str(json['response']['next_page'])
-
     return list(songs_set)
 
 def main(artist_name, nb_songs = 120):
@@ -76,22 +72,14 @@ def main(artist_name, nb_songs = 120):
     with multiprocessing.Pool(processes=20) as pool:
         lyrics = pool.starmap(lyrics_from_song_api_path,
                            enumerate(artist_songs))
-        lyrics_lower = [sentence.lower() for sentence in lyrics]
-        words_dbl_list = pool.map(word_tokenize, lyrics_lower)
 
-    artist_lyrics = []
-    for i in words_dbl_list:
-        artist_lyrics.extend(i)
+    artist_lyrics = ''
+    for i in lyrics:
+        artist_lyrics += '--------------------------------------\n' + i + '\n'
 
-    mapped_lyrics = Counter(artist_lyrics)
-    ordered = mapped_lyrics.most_common()
-    clean=[]
-    for i, j in ordered:
-        if len(i) > 3 and int(j) > (nb_songs / 10.):
-            clean.append((i,j))
-    with open(artist_name + '.txt', 'w') as f:
-        f.write(str(clean))
-    return clean
+    with open(artist_name + '.lyrics', 'w') as f:
+        f.write(artist_lyrics)
+    return artist_lyrics
 
 if __name__ == '__main__':
     print('Starting')
@@ -100,4 +88,4 @@ if __name__ == '__main__':
     elif (len(sys.argv) == 2):
         main(sys.argv[1])
     else:
-        print('Usage: ./geniusflow.py ARTIST [NB_SONGS]')
+        print('Usage: ./generator.py ARTIST [NB_SONGS]')
