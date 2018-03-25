@@ -36,7 +36,7 @@ def get_artist_api(artist_name):
     data = { 'q': artist_name }
     response = requests.get(search_url, params=data, headers=Auth_headers)
     json = response.json()
-    artist_path = None
+    artist_path = []
     for hit in json['response']['hits']:
         artist = hit['result']['primary_artist']
         if artist['name'] == artist_name:
@@ -77,7 +77,7 @@ def main(artist_name, nb_songs = 120):
     for i in lyrics:
         artist_lyrics += '--------------------------------------\n' + i + '\n'
 
-    with open(artist_name + '.lyrics', 'w') as f:
+    with open(artist_name + str(nb_songs) + '.lyrics', 'w') as f:
         f.write(artist_lyrics)
     return artist_lyrics
 
