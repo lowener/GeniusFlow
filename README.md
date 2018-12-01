@@ -29,8 +29,10 @@ You must also have an API key from https://genius.com/.
 You can use the specially modified script `./json_generator [Artist] [Nb_tracks]`
 to create json files already formatted to be inserted in ElasticSearch.
 
-## Example: `
-./json_generator Orelsan 10`
+## Example:
+
+`./json_generator Orelsan 10`
+
 Will create the file `Orelsan10.json`. It can be added to ElasticSearch
 by using the command:
 
