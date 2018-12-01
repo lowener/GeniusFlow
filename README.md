@@ -20,6 +20,7 @@ With your RapGenius API key in the file *key_api.txt*
 * Python 3
 * BeautifulSoup
 * nltk
+* requests
 
 You must also have an API key from https://genius.com/.
 

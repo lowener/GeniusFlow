@@ -1,4 +1,4 @@
 beautifulsoup4==4.6.0
 nltk==3.2.5
-requests==2.18.4
+requests==2.20
 stop_words==2018.7.23
